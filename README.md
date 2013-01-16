@@ -22,7 +22,7 @@ This script contains two functions.
 
 * **Function Name:** `export-ios-icons-of-image-for-device`<br>
 **Menu:** `File --> Export iOS Icon of Image --> Icons for Device(s) ...`<br>
-Exports multiple iOS app icons to a user specified directory for a user specified iOS device. The following are the possible iOS app icon filenames (and resolutions):<br><br>
+Exports multiple iOS app icons to a user specified directory for a user specified iOS device. The following are the possible iOS app icon filenames (and resolutions):<br>
 `iTunesArtwork@2x (1024 x 1024)`<br>
 `iTunesArtwork (512 x 512)`<br>
 `Icon-72@2x.png (144 x 144)`<br>
