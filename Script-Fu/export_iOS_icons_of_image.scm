@@ -17,17 +17,17 @@
             (let (
                 (theDuplicateImage (car (gimp-image-duplicate inImage))))
                 
-                (gimp-image-scale theDuplicateImage inDimension inDimension)
+               (gimp-image-scale theDuplicateImage inDimension (* (car (gimp-image-height theDuplicateImage)) (/ inDimension (car (gimp-image-width theDuplicateImage)))))
                 (file-png-save
                     RUN-NONINTERACTIVE
                     theDuplicateImage
-                    (car (gimp-image-flatten theDuplicateImage))
+                    (car (gimp-image-merge-visible-layers theDuplicateImage 1))
                     thePathAndFilename
                     inFilename
                     0               ; Use Adam7 interlacing?
                     9               ; Deflate Compression factor (0--9)
-                    0               ; Write bKGD chunk?
-                    0               ; Write gAMA chunk?
+                    1               ; Write bKGD chunk?
+                    1               ; Write gAMA chunk?
                     0               ; Write oFFs chunk?
                     0               ; Write pHYs chunk?
                     0)              ; Write tIME chunk?
@@ -54,7 +54,33 @@
     SF-VALUE     "Width in Pixels"  "57"
 )
 
-(script-fu-menu-register "export-ios-icon-of-image" "<Image>/File/Export iOS Icon of Image")
+(script-fu-menu-register "export-ios-icon-of-image" "<Image>/File/iOS Icon & Image exports")
+
+(define (export-ios-retina-of-image inImage inDrawable inPath inFilename inDimension)
+ 
+            (export-ios-icon-of-image inImage inDrawable inPath (string-append (string-append inFilename "@2x") ".png") inDimension)
+            (export-ios-icon-of-image inImage inDrawable inPath (string-append inFilename ".png") (/ inDimension 2))
+
+)
+
+(script-fu-register
+    "export-ios-retina-of-image"                                        ;func name
+    "Standard and Retina version for image"                             ;menu label
+    "Exports an image in retina and standard format with the user's choice of:\
+      path, filename, and width in pixels."                             ;description           
+    "Michael Morris"                                                    ;author
+    "Copyright (c) 2013 Michael Morris\         
+      This software is released under MIT Open Source License"          ;copyright notice
+    "April, 16   2013"                                                  ;date created
+    "*"                                                                 ;image type that the script works on
+    SF-IMAGE     "Image"            0
+    SF-DRAWABLE  "Drawable"         0
+    SF-DIRNAME   "Path"             "/tmp"
+    SF-STRING    "Filename"         "Icon"
+    SF-VALUE     "Width in Pixels"  "57"
+)
+
+(script-fu-menu-register "export-ios-retina-of-image" "<Image>/File/iOS Icon & Image exports")
 
 ; ==============================================================================
 
@@ -95,4 +121,4 @@
     SF-TOGGLE    "Create iPhone/iPod touch icons"  1
 )
 
-(script-fu-menu-register "export-ios-icons-of-image-for-device" "<Image>/File/Export iOS Icon of Image")
+(script-fu-menu-register "export-ios-icons-of-image-for-device" "<Image>/File/iOS Icon & Image exports")
