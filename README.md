@@ -1,5 +1,5 @@
 #GIMP-scripts
-###Version 1.10
+###Version 1.20
 #####Copyright (c) 2013 Michael Morris<br>This software is released under MIT Open Source License
 
 **************
@@ -12,17 +12,17 @@
 
 ###Script-Fu / export_iOS_icons_of_image.scm###
 
-This Script-Fu script automatically generates all the required and recommend app icons with the proper names and resolutions for the various iOS devices from a single source image.
+This Script-Fu script contains functions that non-destructively convert the active image to various user specified iOS images and app icons.  
 
-For each app icon: the source image* is duplicated, then the duplicated image is scaled, then the scaled duplicate image is exported to a .png file, and finally the scaled duplicate image is deleted. The resulting .png files have the proper names and resolutions for iOS app icons for iPad and iPhone/iPod touch for both normal and retina displays.
+The following describes the conversion process. First, the active image is duplicated.  Second, if scaling is required, scaling is applied to the duplicate image.  Next, the duplicate image is exported with a name that follows the iOS naming convention ("@2x.png" for Retina images and ".png" for Non-Retina images, as well as proper iOS app icon names when exporting app icons). Finally after completion of the export, the duplicate image is destroyed.  Each image generated started with a clean duplicate copy of the active image.
 
-\**The recommended resolution of the source image is 1024 x 1024*
+This script contains three functions.
 
-This script contains two functions.
-
-* **Function Name:** `export-as-ios-icons-for-device`<br>
-**Menu:** `File --> Export as iOS --> Icons for Device(s) ...`<br>
-Exports multiple iOS app icons to a user specified directory for a user specified iOS device. The following are the possible iOS app icon filenames (and resolutions):<br>
+* **Function Name:** `export-image-as-app-icons-for-devices`<br>
+**Menu:** `File --> iOS Export --> Image as --> App Icons for Device(s) ...`<br>
+Exports the required and recommend iOS app icons for the various iOS devices and iOS display types from the active image.<br><br>
+<i>The recommended resolution of the active image is 1024 x 1024.</i><br><br>
+The following are the possible iOS app icon filenames (and resolutions):<br>
 `iTunesArtwork@2x (1024 x 1024)`<br>
 `iTunesArtwork (512 x 512)`<br>
 `Icon-72@2x.png (144 x 144)`<br>
@@ -34,14 +34,29 @@ Exports multiple iOS app icons to a user specified directory for a user specifie
 `Icon-Small@2x.png (58 x 58)`<br>
 `Icon-Small.png (29 x 29)`<br>
 
-* **Function Name:** `export-as-ios-retina-and-standard-image`<br>
-**Menu:** `File --> Export as iOS --> Image(s) ...`<br>
-Export scaled (selectable) iOS image(s) (retina and/or standard) from the active image.  The scaling is either square or rectangular. Square scaling results in iOS images that have the width and height equal to the size specified. Rectangular scaling results in iOS image(s) that have either the width or height equal to the size specified and the other dimension scaled proportionally.
+* **Function Name:** `export-image-as-ios-images`<br>
+**Menu:** `File --> iOS Export --> Image as --> Image(s) ...`<br>
+Exports an iOS Retina image and/or an iOS Non-Retina image from the active image. The resulting image(s) are scaled per user specifications.<br><br>
+Scaling will be either down, up, or none, depending upon the user specified size and the active image's resolution. Scaling is either square or rectangular. Square scaling results in image(s) that have the width and height equal to the size specified. Rectangular scaling results in image(s) that have either the width or height equal to the size specified and the other dimension scaled proportionally.<br><br>
+If the user specifies that both Retina and Non-Retina images are to be exported, the resolution of the resulting iOS Retina image will be equivalent to the size specified while the resolution of the resulting iOS Non-Retina image will be half of the size. If the user specifies only a Retina or only a Non-Retina image is to be exported, resulting iOS image will be equivalent to the size specified.<br><br>
+<i>The recommended resolution of the active image is equivalent to the resolution of the largest image to be exported.</i>
+
+* **Function Name:** `export-retina-resolution-image-as-ios-images`<br>
+**Menu:** `File --> iOS Export --> Retina Resolution Image as --> Image(s) ...`<br>
+Exports an iOS Retina image and/or an iOS Non-Retina image from the active image. The active image's resolution is equivalent to that of the resulting iOS Retina image.<br><br>
+The resulting iOS Retina image has the same width and height as the active image. The resulting iOS Non-Retina image has half the width and half the height as the active image.<br><br>
+<i>The recommended resolution of the active image is equivalent to that of the resulting iOS Retina image.</i><br>
+
+
 ##Installation
 1. Copy the scripts from the `GIMP-scripts/Script-Fu` directory to the GIMP scripts directory.
 2. Start GIMP
 3. In GIMP `Filters --> Script-Fu --> Refresh Script`
 ##Release Notes
+### 1.20 - July 17, 2013
+* Refactored the Menu items in GIMP. Everything is under `File --> iOS Export`.
+* Added iOS Export Retina Resolution Image as Image(s). `File --> iOS Export --> Retina Resolution Image as --> Image(s) ...`
+* Renamed functions with more descriptive names and cleaned up function descriptions.
 ### 1.10 - April 17, 2013
 * Generalized the single icon export.
   * Retina and/or Standard images can be exported in a single step.

@@ -1,4 +1,5 @@
 ; export_iOS_icons_of_image.scm
+; Version 1.20
 ; Copyright (c) 2013 Michael Morris
 ; This software is released under MIT Open Source License
 ; ==============================================================================
@@ -34,8 +35,50 @@
                 (gimp-image-delete theDuplicateImage)))))
 
 ; ------------------------------------------------------------------------------
-(define (export-as-ios-retina-and-standard-image inImage inDrawable inPath inFilename inImageExportOption inImageScalingOption inSize)
-    ; Image export: retina
+(define (export-retina-resolution-image-as-ios-images inImage inDrawable inPath inFilename inImageExportOption)
+    ; Image export: Retina
+    (if (or (= 0 inImageExportOption) (= 1 inImageExportOption))
+        (let* (
+            (filename (string-append inFilename "@2x.png")))
+            (export-as-ios-image inImage inDrawable inPath filename (car (gimp-image-width inImage)) (car (gimp-image-height inImage)))))
+
+    ; Image export: Non-Retina
+    (if (or (= 0 inImageExportOption) (= 2 inImageExportOption))
+        (let* (
+            (filename (string-append inFilename ".png")))
+            (export-as-ios-image inImage inDrawable inPath filename (round (/ (car (gimp-image-width inImage)) 2)) (round (/ (car (gimp-image-height inImage)) 2))))))
+     
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(script-fu-register
+    "export-retina-resolution-image-as-ios-images"                  ;func name
+    "Image(s) ..."                                                  ;menu label
+    "Exports an iOS Retina image and/or an iOS Non-Retina image\
+    from the active image. The active image's resolution is\
+    equivalent to that of the resulting iOS Retina image.\
+    \
+    The resulting iOS Retina image has the same width and height\
+    as the active image. The resulting iOS Non-Retina image has\
+    half the width and half the height as the active image.\
+    \
+    The recommended resolution of the active image is\
+    equivalent to that of the resulting iOS Retina image."          ;description
+    "Michael Morris"                                                ;author
+    "Copyright (c) 2013 Michael Morris\         
+    This software is released under MIT Open Source License"        ;copyright notice
+    "July 17, 2013"                                                 ;date created
+    "*"                                                             ;image type that the script works on
+    SF-IMAGE     "Image"                                    0
+    SF-DRAWABLE  "Drawable"                                 0
+    SF-DIRNAME   "Path"                                     "/tmp"
+    SF-STRING    "Filename\n  (without @2x.png & .png)"     "Image"
+    SF-OPTION    "Image(s) exported" '("Retina and Non-Retina" "Retina only" "Non-Retina only")
+)
+
+(script-fu-menu-register "export-retina-resolution-image-as-ios-images" "<Image>/File/iOS Export/Retina Resolution Image as")
+
+; ------------------------------------------------------------------------------
+(define (export-image-as-ios-images inImage inDrawable inPath inFilename inImageExportOption inImageScalingOption inSize)
+    ; Image export: Retina
     (if (or (= 0 inImageExportOption) (= 1 inImageExportOption))
         (let* (
             (filename (string-append inFilename "@2x.png")))
@@ -51,10 +94,10 @@
                     (if (= 2 inImageScalingOption)
                         ; Scaling option rectangle: width is proportionate, height = size
                         (export-as-ios-image inImage inDrawable inPath filename (round (* (car (gimp-image-width inImage)) (/ inSize (car (gimp-image-height inImage))))) inSize))))
-            ; Halve the image size for standard image
+            ; Halve the image size for Non-Retina image
             (set! inSize (round (/ inSize 2)))))
 
-    ; Image export: standard
+    ; Image export: Non-Retina
     (if (or (= 0 inImageExportOption) (= 2 inImageExportOption))
         (let* (
             (filename (string-append inFilename ".png")))
@@ -73,36 +116,45 @@
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 (script-fu-register
-    "export-as-ios-retina-and-standard-image"                       ;func name
+    "export-image-as-ios-images"                                    ;func name
     "Image(s) ..."                                                  ;menu label
-    "Export scaled (selectable) iOS image(s) (retina and/or\
-    standard) from the active image.  The scaling is either square\
-    or rectangular.\
+    "Exports an iOS Retina image and/or an iOS Non-Retina image\
+    from the active image. The resulting image(s) are scaled per\
+    user specifications.\
     \
-    Square scaling results in iOS images that have the width and\
-    height equal to the size specified.\
+    Scaling will be either down, up, or none, depending upon the\
+    user specified size and the active image's resolution. Scaling\
+    is either square or rectangular. Square scaling results in\
+    image(s) that have the width and height equal to the size\
+    specified. Rectangular scaling results in image(s) that have\
+    either the width or height equal to the size specified and the\
+    other dimension scaled proportionally.\
     \
-    Rectangular scaling results in iOS image(s) that have either\
-    the width or height equal to the size specified and the other\
-    dimension scaled proportionally."                               ;description
+    If the user specifies that both Retina and Non-Retina images\
+    are to be exported, the resolution of the resulting iOS Retina\
+    image will be equivalent to the size specified while the\
+    resolution of the resulting iOS Non-Retina image will be half\
+    of the size. If the user specifies only a Retina or only a\
+    Non-Retina image is to be exported, resulting iOS image will\
+    be equivalent to the size specified."                           ;description
     "Michael Morris"                                                ;author
     "Copyright (c) 2013 Michael Morris\         
     This software is released under MIT Open Source License"        ;copyright notice
-    "April 17, 2013"                                                ;date created
+    "July 17, 2013"                                                 ;date created
     "*"                                                             ;image type that the script works on
     SF-IMAGE     "Image"                                    0
     SF-DRAWABLE  "Drawable"                                 0
     SF-DIRNAME   "Path"                                     "/tmp"
     SF-STRING    "Filename\n  (without @2x.png & .png)"     "Image"
-    SF-OPTION    "Image(s) exported" '("Retina and Standard" "Retina only" "Standard only")
+    SF-OPTION    "Image(s) exported" '("Retina and Non-Retina" "Retina only" "Non-Retina only")
     SF-OPTION    "Image scaling" '("Square (width = size, height = size)" "Rectangle (width = size, height is proportionate)" "Rectangle (width is proportionate, height = size)")
-    SF-VALUE     "Size of image in Pixels\n  (if both retina and standard\n  images are being exported,\n  the standard image size\n  will be half of the value)"   "114"
+    SF-VALUE     "Size of image in Pixels\n  (if both Retina and Non-Retina\n  images are being exported,\n  the Non-Retina image size\n  will be half of the value)"   "114"
 )
 
-(script-fu-menu-register "export-as-ios-retina-and-standard-image" "<Image>/File/Export as iOS")
+(script-fu-menu-register "export-image-as-ios-images" "<Image>/File/iOS Export/Image as")
 
 ; ------------------------------------------------------------------------------
-(define (export-as-ios-icons-for-device inImage inDrawable inPath iniPadIcons iniPhoneIcons)
+(define (export-image-as-app-icons-for-devices inImage inDrawable inPath iniPadIcons iniPhoneIcons)
     
     (if (or (= 1 iniPadIcons) (= 1 iniPhoneIcons))
         (begin
@@ -123,15 +175,18 @@
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 (script-fu-register
-    "export-as-ios-icons-for-device"                                ;func name
-    "Icons for Device(s) ..."                                       ;menu label
-    "Exports the required and recommend iOS icons for the iOS\
-    devices (selectable) and iOS display types from the active\
-    image."                                                         ;description
+    "export-image-as-app-icons-for-devices"                         ;func name
+    "App Icons for Device(s) ..."                                   ;menu label
+    "Exports the required and recommend iOS app icons for the\
+    various iOS devices and iOS display types from the active\
+    image.\
+    \
+    The recommended resolution of the active image is\
+    1024 x 1024."                                                   ;description
     "Michael Morris"                                                ;author
     "Copyright (c) 2013 Michael Morris\
     This software is released under MIT Open Source License"        ;copyright notice
-    "April 17, 2013"                                                ;date created
+    "July 17, 2013"                                                 ;date created
     "*"                                                             ;image type that the script works on
     SF-IMAGE    "Image"                             0
     SF-DRAWABLE "Drawable"                          0
@@ -140,4 +195,4 @@
     SF-TOGGLE   "Create iPhone/iPod touch icons"    1
 )
 
-(script-fu-menu-register "export-as-ios-icons-for-device" "<Image>/File/Export as iOS")
+(script-fu-menu-register "export-image-as-app-icons-for-devices" "<Image>/File/iOS Export/Image as")
