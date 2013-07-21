@@ -1,5 +1,5 @@
 #GIMP-scripts
-###Version 1.20
+###Version 1.30
 #####Copyright (c) 2013 Michael Morris<br>This software is released under MIT Open Source License
 
 **************
@@ -7,6 +7,9 @@
 ##Objective
 
 `GIMP-scripts` is a collection of macros or scripts for GIMP.
+
+* Script-Fu / export_iOS_icons_of_image.scm
+* Script-Fu / select_round_rectangle.scm
 
 **************
 
@@ -47,16 +50,41 @@ Exports an iOS Retina image and/or an iOS Non-Retina image from the active image
 The resulting iOS Retina image has the same width and height as the active image. The resulting iOS Non-Retina image has half the width and half the height as the active image.<br><br>
 <i>The recommended resolution of the active image is equivalent to that of the resulting iOS Retina image.</i><br>
 
+**************
+
+###Script-Fu / select_round_rectangle.scm###
+
+The Rectangular Select Tool with Rounded corners option checked is very useful, but it could be so much more.  The underlying GIMP function, `gimp-image-select-round-rectangle` written by Martin Nordholts provides much more functionality than what is exposed in the Rectangular Select Tool.
+
+This script attempts to unleash `gimp-image-select-round-rectangle`'s potential by raising the radius limit to 262144 pixels from 100 pixels and exposes the ability to specify different x and y radii.
+
+In case you are wondering, a [bug report](https://bugzilla.gnome.org/show_bug.cgi?id=589473)
+ has been submitted to "fix" the Rectangular Select Tool.
+
+This script contains two functions.
+
+* **Function Name:** `select-rectangle-with-circular-corners`<br>
+**Menu:** `Select --> Rectangle with circular corners ...`<br>
+Creates a rectangular selection with circular corners. Makes selections like the Rectangular Select Tool with the Rounded corners option checked, however the radius limit is 262144 pixels instead of 100 pixels.
+
+* **Function Name:** `select-rectangle-with-elliptical-corners`<br>
+**Menu:** `Select --> Rectangle with elliptical corners ...`<br>
+Creates a rectangular selection with elliptical corners. Makes selections like the Rectangular Select Tool with Rounded corners option checked, however the x and y radius of the corner can be specified independently to form more of an elliptical corner rather than circular. Also the radius limit is 262144 pixels instead of 100 pixels.
 
 ##Installation
 1. Copy the scripts from the `GIMP-scripts/Script-Fu` directory to the GIMP scripts directory.
 2. Start GIMP
 3. In GIMP `Filters --> Script-Fu --> Refresh Script`
+
 ##Release Notes
+### 1.30 - July 20, 2013
+* Added select_round_rectangle.scm with `select-rectangle-with-circular-corners` and `select-rectangle-with-elliptical-corners`
+
 ### 1.20 - July 17, 2013
 * Refactored the Menu items in GIMP. Everything is under `File --> iOS Export`.
 * Added iOS Export Retina Resolution Image as Image(s). `File --> iOS Export --> Retina Resolution Image as --> Image(s) ...`
 * Renamed functions with more descriptive names and cleaned up function descriptions.
+
 ### 1.10 - April 17, 2013
 * Generalized the single icon export.
   * Retina and/or Standard images can be exported in a single step.
@@ -65,7 +93,9 @@ The resulting iOS Retina image has the same width and height as the active image
   * Cleaner interface.
 * Saving png background and gamma attributes. 
 * Using `gimp-image-merge-visible-layers` to combine layers instead of `gimp-image-flatten`.
+
 ### 1.00 - January 17, 2013
 * Initial release
+
 ##Contributors
 * **Eric Genet** - iOS Image Export (Retina & Standard), png file saving tweaks, `gimp-image-merge-visible-layers`, and rectangular scaling.
