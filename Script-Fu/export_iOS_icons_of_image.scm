@@ -1,5 +1,4 @@
 ; export_iOS_icons_of_image.scm
-; Version 1.20
 ; Copyright (c) 2013 Michael Morris
 ; This software is released under MIT Open Source License
 ; ==============================================================================

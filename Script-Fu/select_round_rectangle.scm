@@ -1,5 +1,4 @@
-select_round_rectangle.scm
-; Version 1.20
+; select_round_rectangle.scm
 ; Copyright (c) 2013 Michael Morris
 ; This software is released under MIT Open Source License
 ; ==============================================================================
@@ -32,6 +31,7 @@ select_round_rectangle.scm
 (define (select-rectangle-with-elliptical-corners inImage inDrawable inAntialias inFeather inFeatherRadiusX inFeatherRadiusY inOperation inX inY inWidth inHeight inCornerRadiusX inCornerRadiusY)
     (do-select-rectangle-with-elliptical-corners inImage inDrawable inAntialias inFeather inFeatherRadiusX inFeatherRadiusY inOperation inX inY inWidth inHeight inCornerRadiusX inCornerRadiusY)
 )
+
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 (script-fu-register
     "select-rectangle-with-elliptical-corners"                      ;func name
