@@ -1,4 +1,5 @@
 ; export_iOS_icons_of_image.scm
+; Version 1.20
 ; Copyright (c) 2013 Michael Morris
 ; This software is released under MIT Open Source License
 ; ==============================================================================
@@ -160,15 +161,28 @@
             (export-as-ios-image inImage inDrawable inPath "iTunesArtwork@2x" 1024 1024)
             (export-as-ios-image inImage inDrawable inPath "iTunesArtwork" 512 512)
             (export-as-ios-image inImage inDrawable inPath "Icon-Small@2x.png" 58 58)
+            (export-as-ios-image inImage inDrawable inPath "icon-40.png" 40 40)
+            (export-as-ios-image inImage inDrawable inPath "icon-60.png" 60 60)
+            (export-as-ios-image inImage inDrawable inPath "icon-76.png" 76 76)
+            (export-as-ios-image inImage inDrawable inPath "icon-40@2x.png" 80 80)
+            (export-as-ios-image inImage inDrawable inPath "icon-60@2x.png" 120 120)
+            (export-as-ios-image inImage inDrawable inPath "icon-76@2x.png" 152 152)
             (export-as-ios-image inImage inDrawable inPath "Icon-Small.png" 29 29)))
     (if (= 1 iniPadIcons)
         (begin
             (export-as-ios-image inImage inDrawable inPath "Icon-72@2x.png" 144 144)
             (export-as-ios-image inImage inDrawable inPath "Icon-72.png" 72 72)
             (export-as-ios-image inImage inDrawable inPath "Icon-Small-50@2x.png" 100 100)
+            (export-as-ios-image inImage inDrawable inPath "Default-Landscape.png" 1024 748)
+            (export-as-ios-image inImage inDrawable inPath "Default-Landscape@2x.png" 2048 1496)
+            (export-as-ios-image inImage inDrawable inPath "Default-Portrait.png" 768 1004)
+            (export-as-ios-image inImage inDrawable inPath "Default-Portrait@2x.png" 1536 2008)
             (export-as-ios-image inImage inDrawable inPath "Icon-Small-50.png" 50 50)))
     (if (= 1 iniPhoneIcons)
         (begin
+            (export-as-ios-image inImage inDrawable inPath "Default.png" 320 480)
+            (export-as-ios-image inImage inDrawable inPath "Default-568h@2x.png" 640 1136)
+            (export-as-ios-image inImage inDrawable inPath "Default@2x.png" 640 960)
             (export-as-ios-image inImage inDrawable inPath "Icon@2x.png" 114 114)
             (export-as-ios-image inImage inDrawable inPath "Icon.png" 57 57))))
 
