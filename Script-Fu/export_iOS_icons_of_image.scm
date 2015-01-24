@@ -160,17 +160,19 @@
             (export-as-ios-image inImage inDrawable inPath "iTunesArtwork@2x" 1024 1024)
             (export-as-ios-image inImage inDrawable inPath "iTunesArtwork" 512 512)
             (export-as-ios-image inImage inDrawable inPath "Icon-Small@2x.png" 58 58)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small.png" 29 29)))
+            (export-as-ios-image inImage inDrawable inPath "Icon-40.png" 40 40)
+            (export-as-ios-image inImage inDrawable inPath "Icon-40@2x.png" 80 80)))
     (if (= 1 iniPadIcons)
         (begin
-            (export-as-ios-image inImage inDrawable inPath "Icon-72@2x.png" 144 144)
-            (export-as-ios-image inImage inDrawable inPath "Icon-72.png" 72 72)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small-50@2x.png" 100 100)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small-50.png" 50 50)))
+            (export-as-ios-image inImage inDrawable inPath "Icon-Small.png" 29 29)
+            (export-as-ios-image inImage inDrawable inPath "Icon-76.png" 76 76)
+            (export-as-ios-image inImage inDrawable inPath "Icon-76@2x.png" 152 152)))
     (if (= 1 iniPhoneIcons)
         (begin
-            (export-as-ios-image inImage inDrawable inPath "Icon@2x.png" 114 114)
-            (export-as-ios-image inImage inDrawable inPath "Icon.png" 57 57))))
+            (export-as-ios-image inImage inDrawable inPath "Icon-Small@3x.png" 87 87)
+            (export-as-ios-image inImage inDrawable inPath "Icon-40@3x.png" 120 120)
+            (export-as-ios-image inImage inDrawable inPath "Icon-60@2x.png" 120 120)
+            (export-as-ios-image inImage inDrawable inPath "Icon-60@3x.png" 180 180))))
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 (script-fu-register
