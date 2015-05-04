@@ -153,24 +153,50 @@
 (script-fu-menu-register "export-image-as-ios-images" "<Image>/File/iOS Export/Image as")
 
 ; ------------------------------------------------------------------------------
-(define (export-image-as-app-icons-for-devices inImage inDrawable inPath iniPadIcons iniPhoneIcons)
+(define (export-image-as-app-icons-for-devices inImage inDrawable inPath iniPadIcons iniPhoneIcons iniAppleWatch)
     
-    (if (or (= 1 iniPadIcons) (= 1 iniPhoneIcons))
+    (if (or (= 1 iniPadIcons) (= 1 iniPhoneIcons) (= 1 iniAppleWatch))
         (begin
-            (export-as-ios-image inImage inDrawable inPath "iTunesArtwork@2x" 1024 1024)
-            (export-as-ios-image inImage inDrawable inPath "iTunesArtwork" 512 512)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small@2x.png" 58 58)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small.png" 29 29)))
+			(export-as-ios-image inImage inDrawable inPath "iTunesArtwork@3x.png" 1536 1536)
+            (export-as-ios-image inImage inDrawable inPath "iTunesArtwork@2x.png" 1024 1024)
+            (export-as-ios-image inImage inDrawable inPath "iTunesArtwork.png" 512 512)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Spotlight@3x.png" 120 120)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Spotlight@2x.png" 80 80)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Spotlight.png" 40 40)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Settings@3x.png" 87 87)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Settings@2x.png" 58 58)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Settings.png" 29 29)
+            ))
     (if (= 1 iniPadIcons)
         (begin
-            (export-as-ios-image inImage inDrawable inPath "Icon-72@2x.png" 144 144)
-            (export-as-ios-image inImage inDrawable inPath "Icon-72.png" 72 72)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small-50@2x.png" 100 100)
-            (export-as-ios-image inImage inDrawable inPath "Icon-Small-50.png" 50 50)))
+            (export-as-ios-image inImage inDrawable inPath "Icon-iPad@3x.png" 228 228)
+            (export-as-ios-image inImage inDrawable inPath "Icon-iPad@2x.png" 152 152)
+            (export-as-ios-image inImage inDrawable inPath "Icon-iPad.png" 76 76)
+            ))
     (if (= 1 iniPhoneIcons)
         (begin
-            (export-as-ios-image inImage inDrawable inPath "Icon@2x.png" 114 114)
-            (export-as-ios-image inImage inDrawable inPath "Icon.png" 57 57))))
+            (export-as-ios-image inImage inDrawable inPath "Icon-iPhone@3x.png" 180 180)
+            (export-as-ios-image inImage inDrawable inPath "Icon-iPhone@2x.png" 120 120)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-iPhone.png" 60 60)
+            ))
+    (if (= 1 iniAppleWatch)
+        (begin
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-42mm-HomeScreen-SL@2x.png" 196 196)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-42mm-HomeScreen-SL.png" 98 98)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-38mm-HomeScreen-SL@2x.png" 172 172)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-38mm-HomeScreen-SL.png" 86 86)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-42mm-HomeScreen-LL@2x.png" 88 88)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-42mm-HomeScreen-LL.png" 44 44)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-38mm-HomeScreen-LL@2x.png" 80 80)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-38mm-HomeScreen-LL.png" 40 40)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-Settings@3x.png" 87 87)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-Settings@2x.png" 58 58)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-Settings.png" 29 29)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-42mm-Notification@2x.png" 55 55)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-42mm-Notification.png" 27.5 27.5)
+            (export-as-ios-image inImage inDrawable inPath "Icon-Watch-38mm-Notification@2x.png" 48 48)
+            ;(export-as-ios-image inImage inDrawable inPath "Icon-Watch-38mm-Notification.png" 24 24)
+            )))
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 (script-fu-register
@@ -192,6 +218,7 @@
     SF-DIRNAME  "Path"                              "/tmp"
     SF-TOGGLE   "Create iPad icons"                 1
     SF-TOGGLE   "Create iPhone/iPod touch icons"    1
+    SF-TOGGLE	"Create Apple Watch Icons"			1
 )
 
 (script-fu-menu-register "export-image-as-app-icons-for-devices" "<Image>/File/iOS Export/Image as")
