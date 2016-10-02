@@ -179,6 +179,9 @@
 			(export-as-ios-image inImage inDrawable inPath "Icon-76.png"	76   76)
             (export-as-ios-image inImage inDrawable inPath "Icon-76@2x.png"	152  152)
             
+            ; Notifications
+            (export-as-ios-image inImage inDrawable inPath "Icon-Small-20.png"     20  20)
+            
             ; Spotlight
             (export-as-ios-image inImage inDrawable inPath "Icon-Small-40.png"     40  40)
             (export-as-ios-image inImage inDrawable inPath "Icon-Small-40@2x.png"  80  80)
@@ -216,6 +219,9 @@
             ; Home Screen on iPad
 			(export-as-ios-image inImage inDrawable inPath "Icon-76.png"	76   76)
             (export-as-ios-image inImage inDrawable inPath "Icon-76@2x.png"	152  152)
+            
+            ; Notifications
+            (export-as-ios-image inImage inDrawable inPath "Icon-Small-20@3x.png"  60  60)
             
             ; Spotlight
             (export-as-ios-image inImage inDrawable inPath "Icon-Small-40.png"     40  40)
